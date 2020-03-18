@@ -1,5 +1,3 @@
-# React Router / HOC
-
 ## Goal
 
 Start new “real world like” project from scratch.
