@@ -20,6 +20,7 @@ Please take a moment and write your feedback for each session to me:
 Let’s keep our learning sessions valuable for everybody!
 I appreciate it very much!
 
-## Link
+## Summaries
 
-[Link](https://docs.google.com/presentation/d/1lYu9RJhnCm5BnK4LYHckIjkKL34Sf6VTfJRDWVxUw40/edit#slide=id.g716fa4327d_0_3) to the summary of the session.
+* [Week 8](https://docs.google.com/presentation/d/1lYu9RJhnCm5BnK4LYHckIjkKL34Sf6VTfJRDWVxUw40/edit?usp=sharing)
+* [Week 9](https://docs.google.com/presentation/d/1dflaBXnhJH0HveM4wxehFc1OgMQrPd4JwFS7yznHwEA/edit?usp=sharing)
