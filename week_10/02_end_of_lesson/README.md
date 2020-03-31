@@ -1,7 +1,7 @@
-## Plan for Week 10: React Hooks
+## Report
 
-* Introduction into environment variables
-* Create loading and error indicators with React Hooks
-* Create reducer httpReducer
-* create a custom hook useHttp
-* Take a look how it will be possible to do the same functionality with HOC and Render Props
+* Explained useState, useEffect, useReducer und custom Hooks
+* Created environment variables
+* Changed our Bolg fields to title, summary, body and createdAt
+* Created loading and error indicators with React Hooks at BlogPage and BlogDetailPage pages
+* Created reducer httpReducer and used it in BlogDetailPage

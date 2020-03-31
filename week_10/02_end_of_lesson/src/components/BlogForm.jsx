@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const BlogForm = ({ onSubmit }) => {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
-  const [fullText, setFullText] = useState('');
+  const [body, setBody] = useState('');
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -11,7 +11,7 @@ const BlogForm = ({ onSubmit }) => {
     onSubmit({
       title,
       summary,
-      fullText,
+      body,
     });
   };
 
@@ -32,8 +32,8 @@ const BlogForm = ({ onSubmit }) => {
       <br />
       <textarea
         placeholder="Add a full text for your blog"
-        value={fullText}
-        onChange={(event) => setFullText(event.target.value)}
+        value={body}
+        onChange={(event) => setBody(event.target.value)}
       />
       <br />
       <button type="submit">Add Blog</button>
