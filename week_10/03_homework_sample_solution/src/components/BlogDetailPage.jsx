@@ -40,7 +40,6 @@ const BlogDetailPage = ({ match, history }) => {
         dispatchHttp({ type: HttpActionType.RESPONSE, responseData: blogEntriesFromDB });
       })
       .catch((e) => {
-        
         dispatchHttp({ type: HttpActionType.ERROR, errorMessage: e.message });
         console.log('Error fetching data!', e.message);
       });
