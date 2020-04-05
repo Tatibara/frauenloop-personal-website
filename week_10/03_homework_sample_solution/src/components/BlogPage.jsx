@@ -1,10 +1,14 @@
 import React, {
   useEffect,
-  useState,
+  useReducer,
 } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import httpReducer, {
+  HttpActionType,
+  InitHttpState,
+} from '../reducers/httpReducer';
 import NavigationUrls from '../routers/NavigationUrls';
 import database from '../services/firebase';
 import BlogEntry from './BlogEntry';
@@ -12,31 +16,31 @@ import Footer from './Footer';
 import Header from './Header';
 
 const BlogPage = () => {
-  const [blogEntries, setBlogEntries] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [{ error, isLoading, data: blogEntries }, dispatchHttp] = useReducer(httpReducer, InitHttpState);
+
 
   useEffect(() => {
-    setIsLoading(true);
-    setError(null);
+    dispatchHttp({ type: HttpActionType.SEND });
+
     database
       .ref('blogs')
+      // once returns a promice
       .once('value')
       .then((dataSnapshot) => {
+        const blogEntriesFromDB = [];
+
         dataSnapshot.forEach((childSnapshot) => {
-          setBlogEntries((existingBlogEntries) => [
-            ...existingBlogEntries,
-            {
-              id: childSnapshot.key,
-              ...childSnapshot.val(),
-            }]);
+          blogEntriesFromDB.push({
+            id: childSnapshot.key,
+            ...childSnapshot.val(),
+          });
         });
-        setIsLoading(false);
+
+        dispatchHttp({ type: HttpActionType.RESPONSE, responseData: blogEntriesFromDB });
       })
       .catch((e) => {
-        setIsLoading(false);
-        setError(e.message);
-        console.log('Error fetching data!!!', e.message);
+        dispatchHttp({ type: HttpActionType.ERROR, errorMessage: e.message });
+        console.log('Error fetching data!', e.message);
       });
   }, []);
 
