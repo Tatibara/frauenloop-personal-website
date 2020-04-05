@@ -3,20 +3,17 @@ import React, {
   useReducer,
 } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import httpReducer, {
   HttpActionType,
   InitHttpState,
 } from '../reducers/httpReducer';
 import NavigationUrls from '../routers/NavigationUrls';
 import database from '../services/firebase';
-import AboutLink from './AboutLink';
-import BlogEntry from './BlogEntry';
+import BlogForm from './BlogForm';
 import Footer from './Footer';
 import Header from './Header';
 
-const BlogDetailPage = ({ match, history }) => {
+const EditBlogPage = ({ match, history }) => {
   const [{ error, isLoading, data: blogEntries }, dispatchHttp] = useReducer(httpReducer, InitHttpState);
   let blogEntry = null;
 
@@ -25,6 +22,7 @@ const BlogDetailPage = ({ match, history }) => {
 
     database
       .ref('blogs')
+      // once returns a promice
       .once('value')
       .then((dataSnapshot) => {
         const blogEntriesFromDB = [];
@@ -48,26 +46,48 @@ const BlogDetailPage = ({ match, history }) => {
     blogEntry = blogEntries.find((blog) => blog.id === match.params.id);
   }
 
-  const blogButtonHandler = () => {
-    history.push(NavigationUrls.blogPageUrl);
+  const onEditBlogHandler = (updatedBlog) => {
+    if (blogEntry) {
+      database
+        .ref(`blogs/${blogEntry.id}`)
+        .update({ ...updatedBlog, updatedAt: new Date().getTime() })
+        .then(() => {
+          console.log('updated successful with key: ', blogEntry.id);
+          history.push(NavigationUrls.blogPageUrl);
+        }).catch((e) => {
+          console.log('Error saving data', e.message);
+        });
+    }
+  };
+
+  const onDeleteBlog = () => {
+    if (blogEntry) {
+      database
+        .ref(`blogs/${blogEntry.id}`)
+        .remove()
+        .then(() => {
+          console.log('deleted successful with key: ', blogEntry.id);
+          history.push(NavigationUrls.blogPageUrl);
+        });
+    }
   };
 
   return (
     <>
       <Header />
-      <span role="presentation" style={{ textDecoration: 'underline' }} onClick={blogButtonHandler}>Back to Blog</span>
-      {' '}
-      |
-      <AboutLink />
-      {' '}
-      |
-      <Link to={NavigationUrls.homePageUrl}>Back to Home</Link>
+      <h3> Edit blog </h3>
       {isLoading ? <p>Loading...</p>
-        : !error && blogEntry && <BlogEntry blogEntry={blogEntry} /> }
+        : !error && blogEntry && (
+        <>
+          <button type="button" onClick={onDeleteBlog}>Delete</button>
+          <BlogForm onSubmit={onEditBlogHandler} blogEntry={blogEntry} />
+        </>
+        ) }
       {error && <p>{error}</p>}
+
       <Footer />
     </>
   );
 };
 
-export default BlogDetailPage;
+export default EditBlogPage;

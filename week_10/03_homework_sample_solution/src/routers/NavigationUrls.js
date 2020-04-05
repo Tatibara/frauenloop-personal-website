@@ -4,4 +4,5 @@ export default {
   blogPageUrl: '/blog',
   blogDetailPageUrl: '/blog/detail',
   addBlogPageUrl: '/blog/add',
+  editBlogPageUrl: '/blog/edit',
 };

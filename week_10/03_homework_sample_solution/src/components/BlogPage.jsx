@@ -18,7 +18,6 @@ import Header from './Header';
 const BlogPage = () => {
   const [{ error, isLoading, data: blogEntries }, dispatchHttp] = useReducer(httpReducer, InitHttpState);
 
-
   useEffect(() => {
     dispatchHttp({ type: HttpActionType.SEND });
 
@@ -50,10 +49,14 @@ const BlogPage = () => {
       <h3> My Blog is Everything! </h3>
       <Link to={NavigationUrls.addBlogPageUrl}>Add New Entry</Link>
       {isLoading ? <p>Loading...</p>
-        : blogEntries.map((blogEntry) => (
+        : !error && blogEntries.map((blogEntry) => (
           <>
             <BlogEntry blogEntry={blogEntry} />
             <Link to={`${NavigationUrls.blogDetailPageUrl}/${blogEntry.id}`}>Read more</Link>
+            {' '}
+            |
+            <Link to={`${NavigationUrls.editBlogPageUrl}/${blogEntry.id}`}>Edit</Link>
+            {' '}
             <hr />
           </>
         ))}

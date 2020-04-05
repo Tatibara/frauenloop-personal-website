@@ -22,6 +22,7 @@ module.exports = {
     'react',
   ],
   rules: {
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "max-len": ["error", { "ignoreComments": true, "code": 120 }]
   },
 };

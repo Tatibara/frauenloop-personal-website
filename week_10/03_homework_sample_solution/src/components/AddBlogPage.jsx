@@ -13,6 +13,9 @@ const AddBlogPage = ({ history }) => {
       .push({ ...newBlog, createdAt: new Date().getTime() })
       .then((ref) => {
         console.log('added successful with key: ', ref.key);
+      })
+      .catch((e) => {
+        console.log('Error saving data', e.message);
       });
 
     history.push(NavigationUrls.blogPageUrl);

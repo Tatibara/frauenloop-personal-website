@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-const BlogForm = ({ onSubmit }) => {
-  const [title, setTitle] = useState('');
-  const [summary, setSummary] = useState('');
-  const [body, setBody] = useState('');
+const BlogForm = ({ onSubmit, blogEntry }) => {
+  const [title, setTitle] = useState((blogEntry && blogEntry.title) || '');
+  const [summary, setSummary] = useState((blogEntry && blogEntry.summary) || '');
+  const [body, setBody] = useState((blogEntry && blogEntry.body) || '');
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ const BlogForm = ({ onSubmit }) => {
         onChange={(event) => setBody(event.target.value)}
       />
       <br />
-      <button type="submit">Add Blog</button>
+      <button type="submit">Save Blog</button>
     </form>
   );
 };
