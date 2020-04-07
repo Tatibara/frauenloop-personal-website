@@ -22,7 +22,6 @@ const EditBlogPage = ({ match, history }) => {
 
     database
       .ref('blogs')
-      // once returns a promice
       .once('value')
       .then((dataSnapshot) => {
         const blogEntriesFromDB = [];
@@ -60,7 +59,7 @@ const EditBlogPage = ({ match, history }) => {
     }
   };
 
-  const onDeleteBlog = () => {
+  const onDeleteBlogHandler = () => {
     if (blogEntry) {
       database
         .ref(`blogs/${blogEntry.id}`)
@@ -68,6 +67,8 @@ const EditBlogPage = ({ match, history }) => {
         .then(() => {
           console.log('deleted successful with key: ', blogEntry.id);
           history.push(NavigationUrls.blogPageUrl);
+        }).catch((e) => {
+          console.log('Error deleting data', e.message);
         });
     }
   };
@@ -79,7 +80,7 @@ const EditBlogPage = ({ match, history }) => {
       {isLoading ? <p>Loading...</p>
         : !error && blogEntry && (
         <>
-          <button type="button" onClick={onDeleteBlog}>Delete</button>
+          <button type="button" onClick={onDeleteBlogHandler}>Delete</button>
           <BlogForm onSubmit={onEditBlogHandler} blogEntry={blogEntry} />
         </>
         ) }
