@@ -1,7 +1,7 @@
-## Plan
+## Report
 
-* Create a custom hook useHttp
-* Understand HOC and Render Props
-* Implement loading and error indicators with HOC
-* Introduction into Redux and Context API
-* Example: React app using redux (Functional and Class Component)
+* Discussed Homework
+* Answered what is Reconciliation and why "key" props
+* Created `useHttp` Custom Hook
+* Applied `useHttp` in `EditBlogPage` and `BlogDetailPage` pages
+
