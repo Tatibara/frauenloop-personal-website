@@ -16,7 +16,6 @@ const useHttp = () => {
     dispatchHttp({ type: HttpActionType.SEND });
     database
       .ref('blogs')
-    // once returns a promice
       .once('value')
       .then((dataSnapshot) => {
         const blogEntriesFromDB = [];
