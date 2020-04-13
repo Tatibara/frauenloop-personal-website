@@ -10,15 +10,15 @@ import Footer from './Footer';
 import Header from './Header';
 
 const BlogDetailPage = ({ match, history }) => {
+  const { httpState: { error, isLoading, data: blogEntries }, getBlockEntries } = useHttp();
   let blogEntry = null;
-  const { httpState, getBlockEntries } = useHttp();
 
   useEffect(() => {
     getBlockEntries();
   }, [getBlockEntries]);
 
-  if (httpState.data) {
-    blogEntry = httpState.data.find((blog) => blog.id === match.params.id);
+  if (blogEntries) {
+    blogEntry = blogEntries.find((blog) => blog.id === match.params.id);
   }
 
   const blogButtonHandler = () => {
@@ -35,9 +35,9 @@ const BlogDetailPage = ({ match, history }) => {
       {' '}
       |
       <Link to={NavigationUrls.homePageUrl}>Back to Home</Link>
-      {httpState.isLoading ? <p>Loading...</p>
-        : !httpState.error && blogEntry && <BlogEntry blogEntry={blogEntry} /> }
-      {httpState.error && <p>{httpState.error}</p>}
+      {isLoading ? <p>Loading...</p>
+        : !error && blogEntry && <BlogEntry blogEntry={blogEntry} /> }
+      {error && <p>{error}</p>}
       <Footer />
     </>
   );

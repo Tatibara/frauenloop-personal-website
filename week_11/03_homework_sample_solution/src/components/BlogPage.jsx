@@ -12,7 +12,7 @@ import Footer from './Footer';
 import Header from './Header';
 
 const BlogPage = () => {
-  const { httpState, getBlockEntries } = useHttp();
+  const { httpState: { error, isLoading, data: blogEntries }, getBlockEntries } = useHttp();
 
   useEffect(() => {
     getBlockEntries();
@@ -23,8 +23,8 @@ const BlogPage = () => {
       <Header />
       <h3> My Blog is Everything! </h3>
       <Link to={NavigationUrls.addBlogPageUrl}>Add New Entry</Link>
-      {httpState.isLoading ? <p>Loading...</p>
-        : !httpState.error && httpState.data.map((blogEntry) => (
+      {isLoading ? <p>Loading...</p>
+        : !error && blogEntries && blogEntries.map((blogEntry) => (
           <Fragment key={blogEntry.id}>
             <BlogEntry blogEntry={blogEntry} />
             <Link to={`${NavigationUrls.blogDetailPageUrl}/${blogEntry.id}`}>Read more</Link>
@@ -35,7 +35,7 @@ const BlogPage = () => {
             {/* <hr /> */}
           </Fragment>
         ))}
-      {httpState.error && <p>{httpState.error}</p>}
+      {error && <p>{error}</p>}
       <Footer />
     </>
   );

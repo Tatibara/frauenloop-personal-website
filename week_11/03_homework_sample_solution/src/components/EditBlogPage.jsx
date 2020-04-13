@@ -1,12 +1,6 @@
-import React, {
-  useEffect,
-  useReducer,
-} from 'react';
+import React, { useEffect } from 'react';
 
-import httpReducer, {
-  HttpActionType,
-  InitHttpState,
-} from '../reducers/httpReducer';
+import useHttp from '../hooks/useHttp';
 import NavigationUrls from '../routers/NavigationUrls';
 import database from '../services/firebase';
 import BlogForm from './BlogForm';
@@ -14,32 +8,12 @@ import Footer from './Footer';
 import Header from './Header';
 
 const EditBlogPage = ({ match, history }) => {
-  const [{ error, isLoading, data: blogEntries }, dispatchHttp] = useReducer(httpReducer, InitHttpState);
+  const { httpState: { error, isLoading, data: blogEntries }, getBlockEntries } = useHttp();
   let blogEntry = null;
 
   useEffect(() => {
-    dispatchHttp({ type: HttpActionType.SEND });
-
-    database
-      .ref('blogs')
-      .once('value')
-      .then((dataSnapshot) => {
-        const blogEntriesFromDB = [];
-
-        dataSnapshot.forEach((childSnapshot) => {
-          blogEntriesFromDB.push({
-            id: childSnapshot.key,
-            ...childSnapshot.val(),
-          });
-        });
-
-        dispatchHttp({ type: HttpActionType.RESPONSE, responseData: blogEntriesFromDB });
-      })
-      .catch((e) => {
-        dispatchHttp({ type: HttpActionType.ERROR, errorMessage: e.message });
-        console.log('Error fetching data!', e.message);
-      });
-  }, []);
+    getBlockEntries();
+  }, [getBlockEntries]);
 
   if (blogEntries) {
     blogEntry = blogEntries.find((blog) => blog.id === match.params.id);
