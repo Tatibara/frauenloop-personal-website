@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const BlogForm = ({ onSubmit, blogEntry }) => {
+const BlogForm = ({ onSubmit, blogEntry, isProcessing }) => {
   const [title, setTitle] = useState((blogEntry && blogEntry.title) || '');
   const [summary, setSummary] = useState((blogEntry && blogEntry.summary) || '');
   const [body, setBody] = useState((blogEntry && blogEntry.body) || '');
@@ -36,7 +36,7 @@ const BlogForm = ({ onSubmit, blogEntry }) => {
         onChange={(event) => setBody(event.target.value)}
       />
       <br />
-      <button type="submit">Save Blog</button>
+      <button disabled={isProcessing} type="submit">Save Blog</button>
     </form>
   );
 };

@@ -4,7 +4,7 @@ export const HttpActionType = {
   ERROR: 'ERROR',
 };
 
-export const InitHttpState = { isLoading: true, error: null, data: null };
+export const InitHttpState = { isLoading: false, error: null, data: null };
 
 export default (currentHttpState, action) => {
   switch (action.type) {
