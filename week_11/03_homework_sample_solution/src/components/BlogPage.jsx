@@ -32,7 +32,7 @@ const BlogPage = () => {
             |
             <Link to={`${NavigationUrls.editBlogPageUrl}/${blogEntry.id}`}>Edit</Link>
             {' '}
-            {/* <hr /> */}
+            <hr />
           </Fragment>
         ))}
       {error && <p>{error}</p>}
