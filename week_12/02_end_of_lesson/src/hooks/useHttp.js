@@ -12,6 +12,10 @@ import database from '../services/firebase';
 const useHttp = () => {
   const [httpState, dispatchHttp] = useReducer(httpReducer, InitHttpState);
 
+  const resetHttpState = useCallback(() => {
+    dispatchHttp({ type: HttpActionType.RESET });
+  }, []);
+
   const getBlockEntries = useCallback(() => {
     dispatchHttp({ type: HttpActionType.SEND });
 
@@ -90,7 +94,7 @@ const useHttp = () => {
   }, []);
 
   return {
-    httpState, getBlockEntries, addBlogEntry, deleteBlogEntry, updateBlogEntry,
+    httpState, getBlockEntries, addBlogEntry, deleteBlogEntry, updateBlogEntry, resetHttpState,
   };
 };
 

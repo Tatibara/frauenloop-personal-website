@@ -1,22 +1,18 @@
 import React, {
   Fragment,
-  useEffect,
+  useContext,
 } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import useHttp from '../hooks/useHttp';
 import NavigationUrls from '../routers/NavigationUrls';
+import { BlogEntriesContext } from '../store/BlogEntriesContext';
 import BlogEntry from './BlogEntry';
 import Footer from './Footer';
 import Header from './Header';
 
 const BlogPage = () => {
-  const { httpState: { error, isLoading, data: blogEntries }, getBlockEntries } = useHttp();
-
-  useEffect(() => {
-    getBlockEntries();
-  }, [getBlockEntries]);
+  const { error, isLoading, blogEntries } = useContext(BlogEntriesContext);
 
   return (
     <>

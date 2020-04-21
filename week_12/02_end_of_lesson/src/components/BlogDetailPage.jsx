@@ -1,21 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import useHttp from '../hooks/useHttp';
 import NavigationUrls from '../routers/NavigationUrls';
+import { BlogEntriesContext } from '../store/BlogEntriesContext';
 import AboutLink from './AboutLink';
 import BlogEntry from './BlogEntry';
 import Footer from './Footer';
 import Header from './Header';
 
 const BlogDetailPage = ({ match, history }) => {
-  const { httpState: { error, isLoading, data: blogEntries }, getBlockEntries } = useHttp();
+  const { error, isLoading, blogEntries } = useContext(BlogEntriesContext);
   let blogEntry = null;
-
-  useEffect(() => {
-    getBlockEntries();
-  }, [getBlockEntries]);
 
   if (blogEntries) {
     blogEntry = blogEntries.find((blog) => blog.id === match.params.id);

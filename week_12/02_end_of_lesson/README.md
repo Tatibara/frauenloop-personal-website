@@ -1,5 +1,6 @@
-## Plan
+## Report
 
-* Discuss Homework
-* Implement Context API for State Management
-* Intro into Atomic Design
+* Discussed Homework
+* Implemented Context API for State Management
+* Did presentation of the projects
+

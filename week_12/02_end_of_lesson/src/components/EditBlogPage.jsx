@@ -1,29 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { Redirect } from 'react-router-dom';
 
-import useHttp from '../hooks/useHttp';
+// import useHttp from '../hooks/useHttp';
 import NavigationUrls from '../routers/NavigationUrls';
+import { BlogEntriesContext } from '../store/BlogEntriesContext';
 import BlogForm from './BlogForm';
 import Footer from './Footer';
 import Header from './Header';
 
 const EditBlogPage = ({ match }) => {
-  const { httpState: { error, isLoading, data: blogEntries }, getBlockEntries } = useHttp();
   const {
-    httpState: { error: errorOnDelete, isLoading: isDeleting, data: blogIdToDelete },
+    error,
+    isLoading,
+    blogEntries,
     deleteBlogEntry,
-  } = useHttp();
-  const {
-    httpState: { error: errorOnUpdate, isLoading: isUpdating, data: blogIdToUpdate },
+    isDeleting,
+    errorOnDelete,
+    blogIdToDelete,
     updateBlogEntry,
-  } = useHttp();
+    isUpdating,
+    errorOnUpdate,
+    blogIdToUpdate,
+  } = useContext(BlogEntriesContext);
 
   let blogEntry = null;
-
-  useEffect(() => {
-    getBlockEntries();
-  }, [getBlockEntries]);
 
   // redirect to BlogPage after successful deleting
   if (blogIdToDelete || blogIdToUpdate) {

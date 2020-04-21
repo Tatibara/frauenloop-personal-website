@@ -26,3 +26,4 @@ I appreciate it very much!
 * [Week 9](https://docs.google.com/presentation/d/1dflaBXnhJH0HveM4wxehFc1OgMQrPd4JwFS7yznHwEA/edit?usp=sharing)
 * [Week 10](https://docs.google.com/presentation/d/1ScCb4pEUQxva_w-w3AmzW9TjYLZ301GlmuhbXBE0Vxg/edit?usp=sharing)
 * [Week 11](https://docs.google.com/presentation/d/1VhvmgXz1QdYwpHZYs-1oGrBTPV3jiOgYIWO_gAZPvsk/edit?usp=sharing)
+* [Week 12](https://docs.google.com/presentation/d/1XMfjP56hi2FAUmQyfL_aO-8A3KMulHabVzy2Y3DoEzw/edit?usp=sharing)

@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Redirect } from 'react-router-dom';
 
-import useHttp from '../hooks/useHttp';
 import NavigationUrls from '../routers/NavigationUrls';
+import { BlogEntriesContext } from '../store/BlogEntriesContext';
 import BlogForm from './BlogForm';
 import Footer from './Footer';
 import Header from './Header';
 
 const AddBlogPage = () => {
-  const { httpState: { error, isLoading: isAdding, data }, addBlogEntry } = useHttp();
+  const {
+    addBlogEntry,
+    isAdding,
+    errorOnAdd,
+    newBlogEntry,
+  } = useContext(BlogEntriesContext);
 
   const onAddBlogHandler = (newBlog) => {
     addBlogEntry(newBlog);
   };
 
   // redirect to BlogPage after successful saving
-  if (data) {
+  if (newBlogEntry) {
     return <Redirect to={NavigationUrls.blogPageUrl} />;
   }
 
@@ -25,7 +30,7 @@ const AddBlogPage = () => {
       <Header />
       <h3> Create new blog </h3>
       <BlogForm isProcessing={isAdding} onSubmit={onAddBlogHandler} />
-      {error && <p>{error}</p>}
+      {errorOnAdd && <p>{errorOnAdd}</p>}
       <Footer />
     </>
   );
